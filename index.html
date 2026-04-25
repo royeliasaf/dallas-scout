@@ -210,13 +210,13 @@ DOCTYPE html>
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
+    gap: 16px;
+    background: transparent;
   }
 
   .card {
     background: var(--bg);
+    border: 1px solid var(--rule);
     padding: 24px;
     transition: background 0.2s;
     display: flex;
@@ -366,159 +366,39 @@ DOCTYPE html>
     .section-desc { display: none; }
   }
 
+  
+  
+  
 
-  /* === V5 PERSONALIZATION === */
-  .customize-btn {
-    border: 2px solid var(--accent);
-    background: var(--accent);
-    color: var(--bg);
-    padding: 10px 18px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 700;
-    margin-top: 12px;
-    transition: all 0.2s;
-  }
-  .customize-btn:hover { background: var(--ink); border-color: var(--ink); }
+  
+  
+  
+  
+  
 
-  .welcome-banner {
-    background: var(--ink);
-    color: var(--bg);
-    padding: 14px 20px;
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    border-left: 4px solid var(--accent);
-  }
-  .welcome-banner .text {
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-style: italic;
-  }
-  .welcome-banner .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .welcome-banner button {
-    background: transparent;
-    color: var(--bg);
-    border: 1px solid var(--bg);
-    padding: 6px 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .welcome-banner button:hover { background: var(--bg); color: var(--ink); }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(26,24,20,0.85);
-    z-index: 100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
-  }
-  .modal-overlay.show { display: flex; }
-  .modal {
-    background: var(--bg);
-    max-width: 560px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 40px;
-    border: 1px solid var(--ink);
-    position: relative;
-  }
-  .modal h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 8px;
-  }
-  .modal h2 .italic { font-style: italic; color: var(--accent); font-weight: 400; }
-  .modal .subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 28px;
-  }
-  .question { margin-bottom: 24px; }
-  .question .q-label {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .question .q-hint {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-  }
-  .options { display: flex; gap: 6px; flex-wrap: wrap; }
-  .option {
-    border: 1px solid var(--rule);
-    background: transparent;
-    color: var(--ink);
-    padding: 8px 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .option:hover { border-color: var(--ink); }
-  .option.selected {
-    background: var(--ink);
-    color: var(--bg);
-    border-color: var(--ink);
-  }
-  .modal-actions {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--rule);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-  .modal-actions button {
-    padding: 12px 22px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 700;
-    border: 1px solid var(--ink);
-    transition: all 0.2s;
-  }
-  .modal-actions .btn-primary { background: var(--ink); color: var(--bg); }
-  .modal-actions .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
-  .modal-actions .btn-secondary { background: transparent; color: var(--ink); }
-  .modal-actions .btn-secondary:hover { background: var(--bg-2); }
+  
 
-  /* badge removed */
-
-  /* match style removed */
-
+  
 
 </style>
 </head>
@@ -529,7 +409,7 @@ DOCTYPE html>
 <header>
   <div class="masthead">
     <div class="meta-line">
-      <span>Vol. 11</span>
+      <span>Vol. 12</span>
       <span class="dot"></span>
       <span>Highland Park · 75205</span>
       <span class="dot"></span>
@@ -537,7 +417,7 @@ DOCTYPE html>
     </div>
     <h1>Dallas, <span class="italic">examined.</span></h1>
     <p class="subtitle">A working guide to the city — broken down by what you're actually craving. Built from research, refined by use.</p>
-    <button class="customize-btn" id="customize-btn" onclick="openModal()">✦ Personalize</button>
+    
   </div>
   <div class="stats">
     Total Spots
@@ -572,100 +452,8 @@ DOCTYPE html>
 </div>
 
 <script>
-// ============ V5 PERSONALIZATION ============
-const STORAGE_KEY = 'dallasScoutPrefs_v1';
-let prefs = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-let browseAllOverride = false; // when true, ignore prefs filter (temporary "browse all" mode)
-
-function openModal() {
-  // Clear all selections, then re-apply from saved prefs
-  document.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
-  if (prefs && prefs.cuisines) {
-    document.querySelectorAll('.options[data-q="cuisines"] .option').forEach(btn => {
-      if (prefs.cuisines.includes(btn.dataset.val)) btn.classList.add('selected');
-    });
-  }
-  document.getElementById('modal').classList.add('show');
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('show');
-}
 
 // Bind option clicks (deferred — modal lives below this script in the DOM)
-function bindOptionClicks() {
-  document.querySelectorAll('.options').forEach(grp => {
-    grp.querySelectorAll('.option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Multi-select toggle. All options stay visible always.
-        btn.classList.toggle('selected');
-      });
-    });
-  });
-}
-
-function savePrefs() {
-  const cuisines = Array.from(document.querySelectorAll('.options[data-q="cuisines"] .option.selected')).map(b => b.dataset.val);
-
-  if (cuisines.length === 0) {
-    prefs = null;
-    localStorage.removeItem(STORAGE_KEY);
-  } else {
-    prefs = { cuisines };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-  }
-
-  browseAllOverride = false;
-  activeCats = [];
-  closeModal();
-  renderWelcomeBanner();
-  renderNav();
-  renderMain();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function clearPrefs() {
-  if (!confirm('Reset your preferences? You can re-take the quiz any time.')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  prefs = null;
-  browseAllOverride = false;
-  activeCats = [];
-  renderWelcomeBanner();
-  renderNav();
-  renderMain();
-}
-
-function renderWelcomeBanner() {
-  const slot = document.getElementById('welcome-banner-slot');
-  if (!prefs) { slot.innerHTML = ''; return; }
-  const count = (prefs.cuisines || []).length;
-  const browseLabel = browseAllOverride ? 'Show my picks only' : 'Browse all';
-  const headlineText = browseAllOverride
-    ? 'Browsing everything. Your picks are still saved.'
-    : `Showing your ${count} picked cuisine${count===1?'':'s'} + everything else.`;
-  slot.innerHTML = `<div class="container" style="max-width:1200px;margin:0 auto;padding:0 32px;">
-    <div class="welcome-banner">
-      <div class="text">${headlineText}</div>
-      <div class="actions">
-        <button onclick="toggleBrowseAll()">${browseLabel}</button>
-        <button onclick="openModal()">Edit picks</button>
-        <button onclick="clearPrefs()">Reset</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function toggleBrowseAll() {
-  browseAllOverride = !browseAllOverride;
-  // Reset to "all" view when toggling
-  activeCats = [];
-  renderWelcomeBanner();
-  renderNav();
-  renderMain();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ============ END PERSONALIZATION ============
 
 const SPOTS = [
   // ===== ITALIAN =====
@@ -816,30 +604,15 @@ const ALL_CATS = [...FOOD_CATS, ...REST_CATS];
 let activeCats = []; // empty array = show all categories. otherwise = filter.
 
 function renderNav() {
-  // If user has cuisine prefs AND not in browse-all override mode, only show those food cats.
-  const filterFood = prefs && prefs.cuisines && prefs.cuisines.length > 0 && !browseAllOverride;
-  const visibleFoodCats = filterFood
-    ? FOOD_CATS.filter(c => prefs.cuisines.includes(c.id))
-    : FOOD_CATS;
-
-  const visibleCatIds = filterFood
-    ? [...visibleFoodCats.map(c => c.id), ...REST_CATS.map(c => c.id)]
-    : ALL_CATS.map(c => c.id);
-  const visibleSpotCount = SPOTS.filter(s => visibleCatIds.includes(s.cat)).length;
-
-  // Drop any activeCats that are no longer visible (e.g. prefs changed)
-  activeCats = activeCats.filter(id => visibleCatIds.includes(id));
-
-  // "All" is active when no specific categories are selected
   const isAllActive = activeCats.length === 0;
 
   const navAll = document.getElementById('nav-all');
   navAll.innerHTML = `<button class="cat-btn all ${isAllActive ? 'active' : ''}" data-cat="all">
-    ◆ All <span class="count">${visibleSpotCount}</span>
+    ◆ All <span class="count">${SPOTS.length}</span>
   </button>`;
 
   const navFood = document.getElementById('nav-food');
-  navFood.innerHTML = visibleFoodCats.map(c => {
+  navFood.innerHTML = FOOD_CATS.map(c => {
     const count = SPOTS.filter(s => s.cat === c.id).length;
     const isActive = activeCats.includes(c.id);
     return `<button class="cat-btn ${isActive ? 'active' : ''}" data-cat="${c.id}">
@@ -860,16 +633,11 @@ function renderNav() {
     btn.addEventListener('click', () => {
       const id = btn.dataset.cat;
       if (id === 'all') {
-        // Clear all selections — show everything
         activeCats = [];
       } else {
-        // Toggle this category in/out of the array
         const idx = activeCats.indexOf(id);
-        if (idx >= 0) {
-          activeCats.splice(idx, 1); // deselect
-        } else {
-          activeCats.push(id); // select
-        }
+        if (idx >= 0) activeCats.splice(idx, 1);
+        else activeCats.push(id);
       }
       renderNav();
       renderMain();
@@ -937,20 +705,9 @@ function renderMain() {
   const main = document.getElementById('main');
   const total = document.getElementById('total-count');
 
-  // Determine which categories to show given prefs
-  const filterFood = prefs && prefs.cuisines && prefs.cuisines.length > 0 && !browseAllOverride;
-  const visibleFoodCats = filterFood
-    ? FOOD_CATS.filter(c => prefs.cuisines.includes(c.id))
-    : FOOD_CATS;
-  const visibleCats = [...visibleFoodCats, ...REST_CATS];
-
-  // Apply activeCats filter on top of pref-visible cats
-  let catsToShow;
-  if (activeCats.length === 0) {
-    catsToShow = visibleCats;
-  } else {
-    catsToShow = visibleCats.filter(c => activeCats.includes(c.id));
-  }
+  const catsToShow = activeCats.length === 0
+    ? ALL_CATS
+    : ALL_CATS.filter(c => activeCats.includes(c.id));
 
   const totalSpots = SPOTS.filter(s => catsToShow.some(c => c.id === s.cat)).length;
   total.textContent = totalSpots;
@@ -963,41 +720,6 @@ function renderMain() {
   main.innerHTML = catsToShow.map(renderSection).join('');
 }
 
-// Old single-category branch (kept as a no-op for now in case anything calls it)
-function _renderMainLegacy() {
-  const main = document.getElementById('main');
-  const total = document.getElementById('total-count');
-  const filterFood = prefs && prefs.cuisines && prefs.cuisines.length > 0 && !browseAllOverride;
-  const visibleFoodCats = filterFood
-    ? FOOD_CATS.filter(c => prefs.cuisines.includes(c.id))
-    : FOOD_CATS;
-  const visibleCats = [...visibleFoodCats, ...REST_CATS];
-  const visibleSpotCount = SPOTS.filter(s => visibleCats.some(c => c.id === s.cat)).length;
-
-  if (false) {
-    total.textContent = visibleSpotCount;
-    main.innerHTML = visibleCats.map(renderSection).join('');
-  } else {
-    const cat = null;
-    const filtered = [];
-    total.textContent = filtered.length;
-    if (filtered.length === 0) {
-      main.innerHTML = `<div class="empty">No spots in this category yet.</div>`;
-    } else {
-      main.innerHTML = `<section class="section">
-        <div class="section-header">
-          <span class="section-num">№ ${cat.num}</span>
-          <span class="section-title">${cat.label}</span>
-          <span class="section-desc">${cat.desc} — ${filtered.length} spot${filtered.length === 1 ? '' : 's'}</span>
-        </div>
-        <div class="grid">
-          ${filtered.map(s => renderCard(s)).join('')}
-        </div>
-      </section>`;
-    }
-  }
-}
-
 // Wait for full DOM (including modal + slot below) before touching anything
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
@@ -1005,47 +727,10 @@ if (document.readyState === 'loading') {
   initApp();
 }
 function initApp() {
-  bindOptionClicks();
-  renderWelcomeBanner();
   renderNav();
   renderMain();
 }
 </script>
-
-
-
-<div id="welcome-banner-slot"></div>
-
-<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <h2>Make this <span class="italic">yours.</span></h2>
-    <div class="subtitle">One question · 5 seconds · stays on your device</div>
-
-    <div class="question">
-      <span class="q-label">What kinds of food do you eat?</span>
-      <span class="q-hint">Pick all that apply — categories you skip will be hidden</span>
-      <div class="options" data-q="cuisines" data-multi="true">
-        <button class="option" data-val="italian">Italian</button>
-        <button class="option" data-val="pizza">Pizza</button>
-        <button class="option" data-val="asian">Asian / Sushi</button>
-        <button class="option" data-val="mexican">Mexican</button>
-        <button class="option" data-val="american">American</button>
-        <button class="option" data-val="steaks">Steaks</button>
-        <button class="option" data-val="bbq">BBQ</button>
-        <button class="option" data-val="healthy">Healthy</button>
-        <button class="option" data-val="fastfood">Fast food</button>
-      </div>
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeModal()">Skip</button>
-      <button class="btn-primary" onclick="savePrefs()">Save →</button>
-    </div>
-  </div>
-</div>
-
-
-
 
 </body>
 </html>
