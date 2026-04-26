@@ -525,7 +525,7 @@ DOCTYPE html>
 <header>
   <div class="masthead">
     <div class="meta-line">
-      <span>Vol. 13.2</span>
+      <span>Vol. 14</span>
       <span class="dot"></span>
       <span>Highland Park · 75205</span>
       <span class="dot"></span>
@@ -537,7 +537,7 @@ DOCTYPE html>
   </div>
   <div class="stats">
     Total Spots
-    <strong id="total-count">82</strong>
+    <strong id="total-count">92</strong>
   </div>
 </header>
 
@@ -703,6 +703,18 @@ const SPOTS = [
   { cat: 'healthcare', name: "Highland Park Dental", rating: 4.9, count: 578, price: 3, address: "6725 Hillcrest Ave", note: "4.9 stars. Cleanings, cosmetic work, wisdom teeth. Open till 7pm Mondays for after-work appts. Free coffee in the waiting room. Closed weekends.", maps: "https://www.google.com/maps/search/?api=1&query=Highland+Park+Dental%2C+6725+Hillcrest+Ave%2C+Dallas%2C+TX", menu: "https://highlandparkdentaldfw.com/", tags: ["Cleanings", "After-work appts"] },
   { cat: 'healthcare', name: "Revive Primary Care", rating: 4.9, count: 227, price: 2, address: "3330 Douglas Ave, Highland Park", note: "Primary care + med spa combo. 4.9 stars. Annual checkups, blood work, prescriptions. Saturday hours till 2pm. Good for routine doctor stuff.", maps: "https://www.google.com/maps/search/?api=1&query=Revive+Primary+Care%2C+3330+Douglas+Ave%2C+Highland+Park%2C+Dallas%2C+TX", menu: "https://reviveprimarycare.com/", tags: ["Saturday hours", "Annual checkup"] },
   { cat: 'healthcare', name: "CVS Pharmacy (Preston)", rating: 3.3, count: 47, price: 2, address: "6709 Preston Rd", note: "Closest CVS for prescriptions. 7am-11pm weekdays. Reviews are mid but it's close and convenient — fine for refills, OTC stuff, last-minute basics.", maps: "https://www.google.com/maps/search/?api=1&query=CVS+Pharmacy+%28Preston%29%2C+6709+Preston+Rd%2C+Dallas%2C+TX", menu: "https://www.cvs.com/", tags: ["Pharmacy", "Late hours"] },
+
+  // ===== ACTIVITIES =====
+  { cat: 'activities', name: "TopGolf Dallas", rating: 4.4, count: 3422, price: 2, address: "8787 Park Ln, North Dallas", note: "Classic group activity. Reserve a bay online — walk-ins wait forever on weekends. Mini golf is also $9/person if golf isn't your thing. Open till 1am every night. Get there early or book ahead.", maps: "https://www.google.com/maps/search/?api=1&query=TopGolf+Dallas%2C+8787+Park+Ln%2C+North+Dallas", tags: ["Reserve online", "Group activity", "Mini golf"] },
+  { cat: 'activities', name: "BowlGames", rating: 4.7, count: 324, price: 2, address: "139 Turtle Creek Blvd Suite 120, Design District", note: "Adult-style bowling spot. Snooker, darts, foosball too. Weekday 4-10pm, weekends 11am till late. Closed Mondays. Book ahead for groups. Lemon pepper wings are solid, drinks are limited.", maps: "https://www.google.com/maps/search/?api=1&query=BowlGames%2C+139+Turtle+Creek+Blvd+Suite+120%2C+Design+District", tags: ["Bowling", "Group spot", "Closed Mondays"] },
+  { cat: 'activities', name: "Escapology Victory Park", rating: 4.9, count: 2561, price: 2, address: "2375 Victory Park Ln Suite 110, Victory Park", note: "4.9 stars. Best escape rooms in Dallas — 7 Deadly Sins and Budapest Express are favorites. Allow 1 hr per room. Group of 4-8 is ideal. Book online, weekends fill up.", maps: "https://www.google.com/maps/search/?api=1&query=Escapology+Victory+Park%2C+2375+Victory+Park+Ln+Suite+110%2C+Victory+Park", tags: ["Escape rooms", "Date night", "Groups"] },
+  { cat: 'activities', name: "Dallas Museum of Art", rating: 4.7, count: 12782, price: 1, address: "1717 N Harwood St, Arts District", note: "FREE general admission. 4 floors, 12k+ reviews. Closed Mon-Tue, open Wed-Sun 11am-5pm. Free bag check. Plan 2 hrs minimum. Special exhibits cost extra.", maps: "https://www.google.com/maps/search/?api=1&query=Dallas+Museum+of+Art%2C+1717+N+Harwood+St%2C+Arts+District", tags: ["Free entry", "Closed Mon-Tue", "Arts District"] },
+  { cat: 'activities', name: "Nasher Sculpture Center", rating: 4.6, count: 1754, price: 2, address: "2001 Flora St, Arts District", note: "Outdoor sculpture garden is the highlight. 'Til Midnight at the Nasher' (warm months) is a vibe — music, art, drinks under the stars. Closed Mon-Tue. Smaller than DMA, plan ~1.5hrs.", maps: "https://www.google.com/maps/search/?api=1&query=Nasher+Sculpture+Center%2C+2001+Flora+St%2C+Arts+District", tags: ["Sculpture garden", "Date worthy", "Arts District"] },
+  { cat: 'activities', name: "Klyde Warren Park", rating: 4.7, count: 18684, price: 1, address: "2012 Woodall Rodgers Fwy, Downtown", note: "FREE. 5-acre park built over a freeway. Food trucks daily, live music weekends, kids splash pad. 5 min walk to DMA + Nasher = perfect culture day combo. Parking is annoying — Uber recommended.", maps: "https://www.google.com/maps/search/?api=1&query=Klyde+Warren+Park%2C+2012+Woodall+Rodgers+Fwy%2C+Downtown", tags: ["Free", "Food trucks", "Family-friendly"] },
+  { cat: 'activities', name: "Katy Trail", rating: 4.8, count: 500, price: 1, address: "3505 N Hall St, Knox/Henderson", note: "Walking distance from your place. 3.5-mile paved trail through Uptown. Walk, run, bike, dog walk. Connects Knox to Victory Park. Best at golden hour. Get on at the Knox-Henderson entrance.", maps: "https://www.google.com/maps/search/?api=1&query=Katy+Trail%2C+3505+N+Hall+St%2C+Knox%2FHenderson", tags: ["Walkable", "Knox", "Free"] },
+  { cat: 'activities', name: "White Rock Lake Park", rating: 4.8, count: 5087, price: 1, address: "8300 E Lawther Dr, East Dallas", note: "9-mile loop trail around the lake. Best for biking, long walks, sunset photos. Dog-friendly. 15 min drive from Highland Park. Open 5am-11pm. Bring water — limited shade.", maps: "https://www.google.com/maps/search/?api=1&query=White+Rock+Lake+Park%2C+8300+E+Lawther+Dr%2C+East+Dallas", tags: ["Lake", "Biking", "Sunset"] },
+  { cat: 'activities', name: "Dallas Farmers Market", rating: 4.5, count: 10342, price: 2, address: "920 S Harwood St, Downtown", note: "Indoor food hall + outdoor weekend market. Daily 10am-7pm. The Shed is open Sat 9-5, Sun 10-5 — that's when local farmers set up. Combine with brunch and a walk around downtown.", maps: "https://www.google.com/maps/search/?api=1&query=Dallas+Farmers+Market%2C+920+S+Harwood+St%2C+Downtown", tags: ["Food hall", "Saturdays", "Local"] },
+  { cat: 'activities', name: "Bishop Arts District", rating: 4.7, count: 1000, price: 2, address: "Bishop Arts District, Oak Cliff", note: "Walkable neighborhood across the river. Indie boutiques, bookshops, murals, restaurants. Best for a 2-3 hr afternoon stroll. Weekends are crowded but lively. Park on side streets, walk Bishop Ave.", maps: "https://www.google.com/maps/search/?api=1&query=Bishop+Arts+District%2C+Bishop+Arts+District%2C+Oak+Cliff", tags: ["Walkable", "Boutiques", "Murals"] },
 ];
 
 const FOOD_CATS = [
@@ -720,11 +732,12 @@ const FOOD_CATS = [
 const REST_CATS = [
   { id: 'coffee', label: 'Coffee', icon: '☕', desc: 'Working & casual hangs', num: '10' },
   { id: 'nightlife', label: 'Nightlife', icon: '🍸', desc: 'Bars, clubs, late nights', num: '11' },
-  { id: 'gym', label: 'Gym', icon: '🏋️', desc: 'Lift & sweat', num: '12' },
-  { id: 'barber', label: 'Barber', icon: '✂️', desc: 'Cuts & grooming', num: '13' },
-  { id: 'wellness', label: 'Wellness', icon: '💆', desc: 'Spa, nails, massage', num: '14' },
-  { id: 'healthcare', label: 'Healthcare', icon: '⚕️', desc: 'Doctors, dentist, ER, pharmacy', num: '15' },
-  { id: 'grocery', label: 'Grocery', icon: '🛒', desc: 'Stocking the kitchen', num: '16' },
+  { id: 'activities', label: 'Activities', icon: '🎳', desc: 'Bowling, golf, museums, walks', num: '12' },
+  { id: 'gym', label: 'Gym', icon: '🏋️', desc: 'Lift & sweat', num: '13' },
+  { id: 'barber', label: 'Barber', icon: '✂️', desc: 'Cuts & grooming', num: '14' },
+  { id: 'wellness', label: 'Wellness', icon: '💆', desc: 'Spa, nails, massage', num: '15' },
+  { id: 'healthcare', label: 'Healthcare', icon: '⚕️', desc: 'Doctors, dentist, ER, pharmacy', num: '16' },
+  { id: 'grocery', label: 'Grocery', icon: '🛒', desc: 'Stocking the kitchen', num: '17' },
 ];
 
 const ALL_CATS = [...FOOD_CATS, ...REST_CATS];
