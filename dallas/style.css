@@ -65,6 +65,15 @@ header {
 
 .meta-line .dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
 
+.back-link {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.back-link:hover { color: var(--accent); border-color: var(--accent); }
+
 h1 {
   font-family: 'Fraunces', serif;
   font-weight: 900;
@@ -339,6 +348,15 @@ footer {
 }
 
 footer strong { color: var(--ink); }
+
+footer .maker {
+  flex-basis: 100%;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  opacity: 0.55;
+}
 
 .empty {
   text-align: center;

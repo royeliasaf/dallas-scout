@@ -3,28 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DallasScout — A working guide to the city</title>
-<meta name="description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
+<title>Scout — A working guide to America</title>
+<meta name="description" content="A working guide to America — one city at a time. Hand-picked spots, built from research, refined by use.">
 
-<!-- Open Graph (iMessage, WhatsApp, Slack, Facebook, LinkedIn) -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://royeliasaf.github.io/dallas-scout/">
-<meta property="og:title" content="DallasScout — A working guide to the city">
-<meta property="og:description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
-<meta property="og:site_name" content="DallasScout">
+<meta property="og:url" content="https://dallas-scout.vercel.app/">
+<meta property="og:title" content="Scout — A working guide to America">
+<meta property="og:description" content="Pick a city. Get the goods. Starting in Dallas.">
+<meta property="og:site_name" content="Scout">
 
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DallasScout — A working guide to the city">
-<meta name="twitter:description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything.">
+<meta name="twitter:title" content="Scout — A working guide to America">
+<meta name="twitter:description" content="Pick a city. Get the goods. Starting in Dallas.">
 
-<!-- Theme color (mobile browser bar) -->
 <meta name="theme-color" content="#1a1814">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="map.css">
 </head>
 <body>
 
@@ -33,60 +30,63 @@
 <header>
   <div class="masthead">
     <div class="meta-line">
-      <span>Vol. 14</span>
+      <span>Vol. 01</span>
       <span class="dot"></span>
-      <span>Highland Park · 75205</span>
+      <span>The Cities</span>
       <span class="dot"></span>
       <span>Curated for Roy</span>
     </div>
-    <h1>Dallas, <span class="italic">examined.</span></h1>
-    <p class="subtitle">A working guide to the city — broken down by what you're actually craving. Built from research, refined by use.</p>
+    <h1>America, <span class="italic">examined.</span></h1>
+    <p class="subtitle">A working guide to the country — one city at a time. Click a city to enter. Built from research, refined by use.</p>
   </div>
   <div class="stats">
-    Total Spots
-    <strong id="total-count">93</strong>
+    Cities Live
+    <strong id="live-count">1</strong>
   </div>
 </header>
 
-<div class="nav-wrap">
-  <div class="nav-group">
-    <div class="nav-group-label">— Browse —</div>
-    <div class="nav" id="nav-all"></div>
+<div class="map-wrap">
+  <div class="map-meta">
+    <span class="legend"><span class="legend-dot live"></span> Live</span>
+    <span class="legend"><span class="legend-dot soon"></span> Coming soon</span>
   </div>
-  <div class="nav-group">
-    <div class="nav-group-label">— Hungry For —</div>
-    <div class="nav" id="nav-food"></div>
+  <div class="map-stage">
+    <svg id="us-map" role="img" aria-label="Map of the United States. Click Dallas to enter Dallas Scout."></svg>
   </div>
-  <div class="nav-group">
-    <div class="nav-group-label">— Everything Else —</div>
-    <div class="nav" id="nav-rest"></div>
-  </div>
+  <div id="tooltip" class="tooltip" hidden></div>
 </div>
 
-<div class="search-wrap">
-  <div class="search-inner">
-    <span class="search-icon">⌕</span>
-    <input type="text" id="search-input" placeholder="Search restaurants, neighborhoods, tags..." autocomplete="off">
-    <button type="button" id="search-clear" aria-label="Clear search">×</button>
+<section class="cities-list">
+  <div class="section-header">
+    <span class="section-num">§ 01</span>
+    <h2 class="section-title">On the map</h2>
+    <span class="section-desc">Click to enter</span>
   </div>
-  <div class="search-hints">
-    Try: <button class="hint" data-q="knox">knox</button> <button class="hint" data-q="date">date</button> <button class="hint" data-q="omakase">omakase</button> <button class="hint" data-q="3am">3am</button> <button class="hint" data-q="walking">walking</button>
+  <div class="city-row">
+    <a href="/dallas/" class="city-card live">
+      <div class="city-name">Dallas</div>
+      <div class="city-meta">TX · 93 spots · Vol. 14</div>
+      <div class="city-arrow">→</div>
+    </a>
+    <div class="city-card soon"><div class="city-name">Austin</div><div class="city-meta">TX · Coming soon</div></div>
+    <div class="city-card soon"><div class="city-name">Houston</div><div class="city-meta">TX · Coming soon</div></div>
+    <div class="city-card soon"><div class="city-name">San Antonio</div><div class="city-meta">TX · Coming soon</div></div>
+    <div class="city-card soon"><div class="city-name">New York</div><div class="city-meta">NY · Coming soon</div></div>
+    <div class="city-card soon"><div class="city-name">Los Angeles</div><div class="city-meta">CA · Coming soon</div></div>
+    <div class="city-card soon"><div class="city-name">Chicago</div><div class="city-meta">IL · Coming soon</div></div>
   </div>
-  <div class="search-meta" id="search-meta"></div>
-</div>
-
-<main id="main"></main>
+</section>
 
 <footer>
-  <div>
-    <strong>Roy's Dallas Guide</strong> — Last updated May 4, 2026
-  </div>
-  <div>Maps + Menus on each card →</div>
+  <div><strong>Scout</strong> — Last updated May 5, 2026</div>
+  <div>Pick a city →</div>
+  <div class="maker">— Made by Roy Eliasaf —</div>
 </footer>
 
 </div>
 
-<script src="spots.js"></script>
-<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script src="map.js"></script>
 </body>
 </html>
