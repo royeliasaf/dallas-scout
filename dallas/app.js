@@ -1,12 +1,48 @@
 let activeCats = [];
 let searchQuery = '';
+let favOnly = false;
+let restExpanded = false;
+
+const FAV_COUNT = SPOTS.filter(s => s.fav).length;
+const VALID_CAT_IDS = new Set([...FOOD_CATS, ...REST_CATS].map(c => c.id));
+
+function readUrlState() {
+  const params = new URLSearchParams(location.search);
+  const catParam = params.get('cat');
+  activeCats = catParam
+    ? catParam.split(',').filter(id => VALID_CAT_IDS.has(id))
+    : [];
+  searchQuery = params.get('q') || '';
+  favOnly = params.get('fav') === '1';
+  if (REST_CATS.some(c => activeCats.includes(c.id))) restExpanded = true;
+}
+
+function writeUrlState() {
+  const params = new URLSearchParams();
+  if (activeCats.length > 0) params.set('cat', activeCats.join(','));
+  const q = searchQuery.trim();
+  if (q) params.set('q', q);
+  if (favOnly) params.set('fav', '1');
+  const qs = params.toString();
+  const newUrl = qs ? `${location.pathname}?${qs}` : location.pathname;
+  if (location.search !== (qs ? `?${qs}` : '')) {
+    history.replaceState(null, '', newUrl);
+  }
+}
+
+function isAnyFilterActive() {
+  return activeCats.length > 0 || favOnly;
+}
 
 function renderNav() {
-  const isAllActive = activeCats.length === 0;
+  const isAllActive = activeCats.length === 0 && !favOnly;
 
   const navAll = document.getElementById('nav-all');
   navAll.innerHTML = `<button class="cat-btn all ${isAllActive ? 'active' : ''}" data-cat="all">
     ◆ All <span class="count">${SPOTS.length}</span>
+  </button>
+  <button class="cat-btn fav-toggle ${favOnly ? 'active' : ''}" data-fav-toggle>
+    ★ Roy's Picks <span class="count">${FAV_COUNT}</span>
   </button>`;
 
   const navFood = document.getElementById('nav-food');
@@ -19,19 +55,45 @@ function renderNav() {
   }).join('');
 
   const navRest = document.getElementById('nav-rest');
-  navRest.innerHTML = REST_CATS.map(c => {
-    const count = SPOTS.filter(s => s.cat === c.id).length;
-    const isActive = activeCats.includes(c.id);
-    return `<button class="cat-btn ${isActive ? 'active' : ''}" data-cat="${c.id}">
-      ${c.icon} ${c.label} <span class="count">${count}</span>
-    </button>`;
-  }).join('');
+  const restActive = REST_CATS.some(c => activeCats.includes(c.id));
+  const showRest = restExpanded || restActive;
 
-  document.querySelectorAll('.cat-btn').forEach(btn => {
+  if (showRest) {
+    const pills = REST_CATS.map(c => {
+      const count = SPOTS.filter(s => s.cat === c.id).length;
+      const isActive = activeCats.includes(c.id);
+      return `<button class="cat-btn ${isActive ? 'active' : ''}" data-cat="${c.id}">
+        ${c.icon} ${c.label} <span class="count">${count}</span>
+      </button>`;
+    }).join('');
+    const hideBtn = !restActive
+      ? `<button class="cat-btn cat-toggle" data-toggle-rest="hide">× Hide</button>`
+      : '';
+    navRest.innerHTML = pills + hideBtn;
+  } else {
+    const total = SPOTS.filter(s => REST_CATS.some(c => c.id === s.cat)).length;
+    navRest.innerHTML = `<button class="cat-btn cat-toggle" data-toggle-rest="show">
+      + Show ${REST_CATS.length} more <span class="count">${total}</span>
+    </button>`;
+  }
+
+  const clearBtn = document.getElementById('clear-filters');
+  if (clearBtn) {
+    if (isAnyFilterActive()) {
+      clearBtn.removeAttribute('hidden');
+      const n = activeCats.length + (favOnly ? 1 : 0);
+      clearBtn.textContent = `× Clear filters (${n})`;
+    } else {
+      clearBtn.setAttribute('hidden', '');
+    }
+  }
+
+  document.querySelectorAll('.cat-btn[data-cat]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.cat;
       if (id === 'all') {
         activeCats = [];
+        favOnly = false;
       } else {
         const idx = activeCats.indexOf(id);
         if (idx >= 0) activeCats.splice(idx, 1);
@@ -39,6 +101,21 @@ function renderNav() {
       }
       renderNav();
       renderMain();
+    });
+  });
+
+  document.querySelectorAll('.cat-btn[data-fav-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      favOnly = !favOnly;
+      renderNav();
+      renderMain();
+    });
+  });
+
+  document.querySelectorAll('[data-toggle-rest]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      restExpanded = btn.dataset.toggleRest === 'show';
+      renderNav();
     });
   });
 }
@@ -111,7 +188,7 @@ function renderSectionWithSpots(cat, spots) {
     <div class="section-header">
       <span class="section-num">№ ${cat.num}</span>
       <span class="section-title">${cat.label}</span>
-      <span class="section-desc">${cat.desc} — ${spots.length} spot${spots.length === 1 ? '' : 's'}</span>
+      <span class="section-desc">${cat.desc} · ${spots.length} spot${spots.length === 1 ? '' : 's'}</span>
     </div>
     <div class="grid">
       ${spots.map(renderCard).join('')}
@@ -130,6 +207,9 @@ function renderMain() {
 
   const q = searchQuery.trim();
   let visibleSpots = SPOTS.filter(s => catsToShow.some(c => c.id === s.cat));
+  if (favOnly) {
+    visibleSpots = visibleSpots.filter(s => s.fav);
+  }
   if (q) {
     visibleSpots = visibleSpots.filter(s => spotMatchesSearch(s, q));
   }
@@ -161,6 +241,7 @@ function renderMain() {
   }).filter(Boolean).join('');
 
   main.innerHTML = sectionsHtml;
+  writeUrlState();
 }
 
 function bindSearch() {
@@ -207,10 +288,40 @@ function bindSearch() {
   });
 }
 
+function bindClearFilters() {
+  const btn = document.getElementById('clear-filters');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    activeCats = [];
+    favOnly = false;
+    restExpanded = false;
+    renderNav();
+    renderMain();
+  });
+}
+
+function syncSearchInputFromState() {
+  const input = document.getElementById('search-input');
+  const clearBtn = document.getElementById('search-clear');
+  if (!input) return;
+  input.value = searchQuery;
+  if (clearBtn) clearBtn.classList.toggle('show', searchQuery.length > 0);
+}
+
 function initApp() {
+  readUrlState();
+  syncSearchInputFromState();
   renderNav();
   renderMain();
   bindSearch();
+  bindClearFilters();
+
+  window.addEventListener('popstate', () => {
+    readUrlState();
+    syncSearchInputFromState();
+    renderNav();
+    renderMain();
+  });
 }
 
 if (document.readyState === 'loading') {

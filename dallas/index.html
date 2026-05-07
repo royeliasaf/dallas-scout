@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DallasScout — A working guide to the city</title>
-<meta name="description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
+<title>Dallas Scout: A working guide to the city</title>
+<meta name="description" content="98 hand-picked Dallas spots: restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
 
 <!-- Open Graph (iMessage, WhatsApp, Slack, Facebook, LinkedIn) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dallas-scout.vercel.app/dallas/">
-<meta property="og:title" content="DallasScout — A working guide to the city">
-<meta property="og:description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
-<meta property="og:site_name" content="DallasScout">
+<meta property="og:title" content="Dallas Scout: A working guide to the city">
+<meta property="og:description" content="98 hand-picked Dallas spots: restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
+<meta property="og:site_name" content="Scout">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="DallasScout — A working guide to the city">
-<meta name="twitter:description" content="98 hand-picked Dallas spots — restaurants, bars, coffee, gym, barber, everything.">
+<meta name="twitter:title" content="Dallas Scout: A working guide to the city">
+<meta name="twitter:description" content="98 hand-picked Dallas spots: restaurants, bars, coffee, gym, barber, everything.">
 
 <!-- Theme color (mobile browser bar) -->
 <meta name="theme-color" content="#1a1814">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f1ea'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23c8341e'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,41 +40,46 @@
       <span>Vol. 14</span>
       <span class="dot"></span>
       <span>Highland Park · 75205</span>
-      <span class="dot"></span>
-      <span>Curated for Roy</span>
     </div>
     <h1>Dallas, <span class="italic">examined.</span></h1>
-    <p class="subtitle">A working guide to the city — broken down by what you're actually craving. Built from research, refined by use.</p>
+    <p class="subtitle">A working guide to the city, broken down by what you're actually craving. Built from research, refined by use.</p>
   </div>
   <div class="stats">
     Total Spots
-    <strong id="total-count">93</strong>
+    <strong id="total-count">98</strong>
   </div>
 </header>
 
 <div class="nav-wrap">
+  <div class="nav-meta">
+    <span class="nav-help">Combine any. Click again to remove.</span>
+    <button class="clear-filters" id="clear-filters" type="button" hidden>× Clear filters</button>
+  </div>
   <div class="nav-group">
-    <div class="nav-group-label">— Browse —</div>
+    <div class="nav-group-label">Browse</div>
     <div class="nav" id="nav-all"></div>
   </div>
   <div class="nav-group">
-    <div class="nav-group-label">— Hungry For —</div>
+    <div class="nav-group-label">Hungry For</div>
     <div class="nav" id="nav-food"></div>
   </div>
   <div class="nav-group">
-    <div class="nav-group-label">— Everything Else —</div>
+    <div class="nav-group-label">Everything Else</div>
     <div class="nav" id="nav-rest"></div>
   </div>
 </div>
 
 <div class="search-wrap">
   <div class="search-inner">
-    <span class="search-icon">⌕</span>
-    <input type="text" id="search-input" placeholder="Search restaurants, neighborhoods, tags..." autocomplete="off">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="m20 20-3.5-3.5"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Search restaurants, neighborhoods, tags..." aria-label="Search Dallas spots" autocomplete="off">
     <button type="button" id="search-clear" aria-label="Clear search">×</button>
   </div>
   <div class="search-hints">
-    Try: <button class="hint" data-q="knox">knox</button> <button class="hint" data-q="date">date</button> <button class="hint" data-q="omakase">omakase</button> <button class="hint" data-q="3am">3am</button> <button class="hint" data-q="walking">walking</button>
+    Try: <button class="hint" data-q="knox" aria-label="Filter by knox">knox</button> <button class="hint" data-q="date" aria-label="Filter by date">date</button> <button class="hint" data-q="omakase" aria-label="Filter by omakase">omakase</button> <button class="hint" data-q="3am" aria-label="Filter by spots open until 3am">3am</button> <button class="hint" data-q="walking" aria-label="Filter by walking distance">walking</button>
   </div>
   <div class="search-meta" id="search-meta"></div>
 </div>
@@ -81,10 +88,10 @@
 
 <footer>
   <div>
-    <strong>Roy's Dallas Guide</strong> — Last updated May 4, 2026
+    <strong>Dallas Scout</strong> · Last updated May 4, 2026
   </div>
   <div>Maps + Menus on each card →</div>
-  <div class="maker">— Made by Roy Eliasaf —</div>
+  <div class="maker">Made by Roy Eliasaf</div>
 </footer>
 
 </div>

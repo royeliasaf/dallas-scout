@@ -12,6 +12,22 @@ const svg = d3.select('#us-map');
 const tooltip = d3.select('#tooltip');
 const stage = d3.select('.map-stage');
 
+const NOTIFY_EMAIL = 'roy.eliasaf@gmail.com';
+function notifyHref(cityName) {
+  const subject = encodeURIComponent(`Notify me when ${cityName} Scout launches`);
+  const body = encodeURIComponent(`Hi Roy, let me know when ${cityName} Scout is live.`);
+  return `mailto:${NOTIFY_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+let topoCache = null;
+const TOPO_URL = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
+function loadTopo() {
+  if (topoCache) return Promise.resolve(topoCache);
+  return d3.json(TOPO_URL).then(data => { topoCache = data; return data; });
+}
+
+const liveDots = [];
+
 function render() {
   svg.selectAll('*').remove();
   const width = svg.node().getBoundingClientRect().width;
@@ -23,7 +39,7 @@ function render() {
     .translate([width / 2, height / 2]);
   const path = d3.geoPath().projection(projection);
 
-  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
+  loadTopo().then(us => {
     const states = topojson.feature(us, us.objects.states).features;
     svg.append('g')
       .attr('class', 'states')
@@ -41,10 +57,12 @@ function render() {
 
     const cityG = svg.append('g').attr('class', 'cities');
 
+    liveDots.length = 0;
     cities.forEach(city => {
       const projected = projection([city.lon, city.lat]);
       if (!projected) return;
       const [x, y] = projected;
+      if (city.status === 'live') liveDots.push({ x, y });
 
       const node = cityG.append('g')
         .attr('class', `city ${city.status}`)
@@ -65,16 +83,15 @@ function render() {
         .attr('y', 4)
         .text(city.name);
 
-      node.style('cursor', city.status === 'live' ? 'pointer' : 'default');
+      node.style('cursor', 'pointer');
 
       node.on('mousemove', (event) => {
         if (city.status === 'soon') {
-          const rect = svg.node().getBoundingClientRect();
           const containerRect = svg.node().parentElement.getBoundingClientRect();
           tooltip
             .style('left', (event.clientX - containerRect.left) + 'px')
             .style('top', (event.clientY - containerRect.top) + 'px')
-            .text(`${city.name} — Coming soon`)
+            .text(`${city.name} · Tell Roy →`)
             .attr('hidden', null);
         }
       });
@@ -82,6 +99,8 @@ function render() {
 
       if (city.status === 'live') {
         node.on('click', () => { window.location.href = city.href; });
+      } else {
+        node.on('click', () => { window.location.href = notifyHref(city.name); });
       }
     });
   }).catch(err => {
@@ -107,7 +126,8 @@ window.addEventListener('resize', () => {
 
 const wrap = document.querySelector('.map-wrap');
 const stageEl = document.querySelector('.map-stage');
-const MAX_TILT = 6;
+const MAX_TILT = 3;
+const DEAD_ZONE_PX = 80;
 let tiltRaf = null;
 let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
 
@@ -122,13 +142,33 @@ function tiltLoop() {
   }
 }
 
-if (wrap && stageEl && !window.matchMedia('(hover: none)').matches) {
+function nearLiveDot(svgX, svgY) {
+  for (const d of liveDots) {
+    const dx = svgX - d.x, dy = svgY - d.y;
+    if (Math.sqrt(dx * dx + dy * dy) < DEAD_ZONE_PX) return true;
+  }
+  return false;
+}
+
+const tiltAllowed = wrap && stageEl
+  && !window.matchMedia('(hover: none)').matches
+  && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (tiltAllowed) {
   wrap.addEventListener('mousemove', (e) => {
     const rect = wrap.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    targetX = px * MAX_TILT * 2;
-    targetY = -py * MAX_TILT * 2;
+    const svgRect = svg.node().getBoundingClientRect();
+    const svgX = e.clientX - svgRect.left;
+    const svgY = e.clientY - svgRect.top;
+    if (nearLiveDot(svgX, svgY)) {
+      targetX = 0;
+      targetY = 0;
+    } else {
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      targetX = px * MAX_TILT * 2;
+      targetY = -py * MAX_TILT * 2;
+    }
     if (!tiltRaf) tiltRaf = requestAnimationFrame(tiltLoop);
   });
   wrap.addEventListener('mouseleave', () => {

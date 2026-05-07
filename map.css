@@ -192,6 +192,11 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
   fill: var(--bg);
   stroke: var(--ink-soft);
   stroke-width: 1;
+  transition: fill 0.15s, stroke 0.15s, r 0.15s;
+}
+#us-map .city.soon:hover .dot {
+  fill: var(--accent);
+  stroke: var(--accent);
 }
 
 #us-map .city .pulse {
@@ -317,8 +322,23 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
 
 .city-card.soon {
   opacity: 0.55;
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s, background 0.2s;
 }
+.city-card.soon:hover {
+  opacity: 1;
+  border-color: var(--accent);
+  background: var(--bg);
+  transform: translateY(-2px);
+}
+.city-card.soon .meta-cta {
+  display: none;
+  color: var(--accent);
+  font-weight: 700;
+}
+.city-card.soon:hover .meta-soon { display: none; }
+.city-card.soon:hover .meta-cta { display: inline; }
 
 .city-name {
   font-family: 'Fraunces', serif;
@@ -376,4 +396,15 @@ footer .maker {
   .stats { text-align: left; border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 12px; }
   .city-row { grid-template-columns: 1fr; }
   #us-map .city.soon .label { opacity: 1; font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .map-stage { transform: none !important; }
+  #us-map .state, #us-map .state-borders { opacity: 1 !important; }
+  #us-map .city .pulse { display: none !important; }
 }
