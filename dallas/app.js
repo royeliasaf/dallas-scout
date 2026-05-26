@@ -126,6 +126,10 @@ function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
 function highlight(text, query) {
   if (!query) return text;
   const re = new RegExp('(' + escapeRegex(query) + ')', 'gi');
@@ -184,11 +188,15 @@ function renderCard(spot) {
 }
 
 function renderSectionWithSpots(cat, spots) {
+  const plural = spots.length === 1 ? '' : 's';
   return `<section class="section">
     <div class="section-header">
       <span class="section-num">№ ${cat.num}</span>
       <span class="section-title">${cat.label}</span>
-      <span class="section-desc">${cat.desc} · ${spots.length} spot${spots.length === 1 ? '' : 's'}</span>
+      <span class="section-meta">
+        <span class="section-desc">${cat.desc}</span>
+        <span class="section-count">${spots.length} spot${plural}</span>
+      </span>
     </div>
     <div class="grid">
       ${spots.map(renderCard).join('')}
@@ -224,13 +232,25 @@ function renderMain() {
     searchMeta.textContent = '';
   }
 
-  if (catsToShow.length === 0) {
-    main.innerHTML = `<div class="empty">No categories selected.</div>`;
-    return;
-  }
-
   if (visibleSpots.length === 0) {
-    main.innerHTML = `<div class="empty">No spots match "${q}". Try a different search.</div>`;
+    if (q) {
+      main.innerHTML = `<div class="empty">No spots match "${escapeHtml(q)}". Try a different search.</div>`;
+    } else {
+      main.innerHTML = `<div class="empty">
+        <p>No spots match these filters.</p>
+        <button type="button" class="clear-filters" data-empty-clear>× Clear all filters</button>
+      </div>`;
+      const btn = main.querySelector('[data-empty-clear]');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          activeCats = [];
+          favOnly = false;
+          restExpanded = false;
+          renderNav();
+          renderMain();
+        });
+      }
+    }
     return;
   }
 
@@ -242,6 +262,16 @@ function renderMain() {
 
   main.innerHTML = sectionsHtml;
   writeUrlState();
+}
+
+function renderSearchHints() {
+  const wrap = document.getElementById('search-hints');
+  if (!wrap || typeof SEARCH_HINTS === 'undefined') return;
+  const label = wrap.querySelector('.search-hints-label');
+  const pills = SEARCH_HINTS.map(h =>
+    `<button class="hint" data-q="${h.q}" aria-label="${h.aria}">${h.label}</button>`
+  ).join('');
+  wrap.innerHTML = (label ? label.outerHTML : '<span class="search-hints-label">Try:</span>') + pills;
 }
 
 function bindSearch() {
@@ -311,6 +341,7 @@ function syncSearchInputFromState() {
 function initApp() {
   readUrlState();
   syncSearchInputFromState();
+  renderSearchHints();
   renderNav();
   renderMain();
   bindSearch();

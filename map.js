@@ -1,5 +1,5 @@
 const cities = [
-  { id: 'dallas',      name: 'Dallas',      state: 'TX', lon: -96.7970,  lat: 32.7767, status: 'live', href: '/dallas/' },
+  { id: 'dallas',      name: 'Dallas',      state: 'TX', lon: -96.7970,  lat: 32.7767, status: 'live', href: '/dallas/', volume: 14 },
   { id: 'austin',      name: 'Austin',      state: 'TX', lon: -97.7431,  lat: 30.2672, status: 'soon' },
   { id: 'houston',     name: 'Houston',     state: 'TX', lon: -95.3698,  lat: 29.7604, status: 'soon' },
   { id: 'san-antonio', name: 'San Antonio', state: 'TX', lon: -98.4936,  lat: 29.4241, status: 'soon' },
@@ -19,8 +19,35 @@ function notifyHref(cityName) {
   return `mailto:${NOTIFY_EMAIL}?subject=${subject}&body=${body}`;
 }
 
+function renderCityCards() {
+  const row = document.getElementById('city-row');
+  if (!row) return;
+  const spotCount = (typeof SPOTS !== 'undefined' && SPOTS.length) || 0;
+
+  row.innerHTML = cities.map(city => {
+    if (city.status === 'live') {
+      const meta = `${city.state} · <span id="${city.id}-count">${spotCount || '…'}</span> spots · Vol. ${city.volume}`;
+      return `<a href="${city.href}" class="city-card live" id="${city.id}-card" aria-label="Enter ${city.name} Scout, ${spotCount} spots curated">
+        <span class="live-badge">Live now</span>
+        <div class="city-name">${city.name}</div>
+        <div class="city-meta">${meta}</div>
+        <div class="city-cta">Enter ${city.name} <span class="city-arrow">→</span></div>
+      </a>`;
+    }
+    return `<a class="city-card soon" href="${notifyHref(city.name)}" aria-label="Notify me when ${city.name} Scout launches">
+      <div class="city-name">${city.name}</div>
+      <div class="city-meta">
+        <span class="meta-soon">${city.state} · Coming soon</span>
+        <span class="meta-cta">Want this? Tell Roy →</span>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+renderCityCards();
+
 let topoCache = null;
-const TOPO_URL = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
+const TOPO_URL = 'https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json';
 function loadTopo() {
   if (topoCache) return Promise.resolve(topoCache);
   return d3.json(TOPO_URL).then(data => { topoCache = data; return data; });

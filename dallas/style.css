@@ -179,6 +179,7 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
 
 .cat-btn:hover { background: var(--ink); color: var(--bg); }
 .cat-btn.active { background: var(--ink); color: var(--bg); }
+.cat-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .cat-btn .count {
   background: var(--bg);
@@ -248,13 +249,22 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
   color: var(--ink);
 }
 
-.section-desc {
+.section-meta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--ink-soft);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.section-desc, .section-count { white-space: nowrap; }
+.section-count::before {
+  content: '·';
+  margin-right: 10px;
+  color: var(--rule);
 }
 
 .grid {
@@ -416,6 +426,15 @@ footer .maker {
   color: var(--ink-soft);
   font-size: 18px;
 }
+.empty p { margin-bottom: 20px; }
+.empty .clear-filters {
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+}
 
 @media (max-width: 600px) {
   .container { padding: 20px 20px 60px; }
@@ -423,6 +442,7 @@ footer .maker {
   .stats { text-align: left; border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 12px; }
   .grid { grid-template-columns: 1fr; }
   .section-desc { display: none; }
+  .section-count::before { display: none; }
 }
 
 /* === SEARCH BAR === */
@@ -478,26 +498,38 @@ footer .maker {
 .search-hints {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   color: var(--ink-soft);
-  margin-top: 8px;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.search-hints-label {
+  text-transform: uppercase;
+  margin-right: 2px;
 }
 .search-hints .hint {
-  background: none;
-  border: none;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
   color: var(--ink-soft);
   font-family: inherit;
   font-size: inherit;
-  letter-spacing: inherit;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  padding: 2px 4px;
-  margin: 0 1px;
-  border-bottom: 1px dashed transparent;
-  transition: color 0.15s, border-color 0.15s;
+  padding: 8px 12px;
+  min-height: 32px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
 .search-hints .hint:hover {
   color: var(--accent);
-  border-bottom-color: var(--accent);
+  border-color: var(--accent);
+  background: var(--bg);
+}
+.search-hints .hint:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .search-meta {

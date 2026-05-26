@@ -12,11 +12,17 @@
 <meta property="og:title" content="Dallas Scout: A working guide to the city">
 <meta property="og:description" content="98 hand-picked Dallas spots: restaurants, bars, coffee, gym, barber, everything. Built from research, refined by use.">
 <meta property="og:site_name" content="Scout">
+<meta property="og:image" content="https://dallas-scout.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="Dallas Scout — A working guide to the city.">
 
 <!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dallas Scout: A working guide to the city">
 <meta name="twitter:description" content="98 hand-picked Dallas spots: restaurants, bars, coffee, gym, barber, everything.">
+<meta name="twitter:image" content="https://dallas-scout.vercel.app/og.png">
+<meta name="twitter:image:alt" content="Dallas Scout — A working guide to the city.">
 
 <!-- Theme color (mobile browser bar) -->
 <meta name="theme-color" content="#1a1814">
@@ -25,7 +31,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -78,8 +84,8 @@
     <input type="text" id="search-input" placeholder="Search restaurants, neighborhoods, tags..." aria-label="Search Dallas spots" autocomplete="off">
     <button type="button" id="search-clear" aria-label="Clear search">×</button>
   </div>
-  <div class="search-hints">
-    Try: <button class="hint" data-q="knox" aria-label="Filter by knox">knox</button> <button class="hint" data-q="date" aria-label="Filter by date">date</button> <button class="hint" data-q="omakase" aria-label="Filter by omakase">omakase</button> <button class="hint" data-q="3am" aria-label="Filter by spots open until 3am">3am</button> <button class="hint" data-q="walking" aria-label="Filter by walking distance">walking</button>
+  <div class="search-hints" id="search-hints">
+    <span class="search-hints-label">Try:</span>
   </div>
   <div class="search-meta" id="search-meta"></div>
 </div>
@@ -88,7 +94,7 @@
 
 <footer>
   <div>
-    <strong>Dallas Scout</strong> · Last updated May 4, 2026
+    <strong>Dallas Scout</strong> · Last updated <span id="last-updated"></span>
   </div>
   <div>Maps + Menus on each card →</div>
   <div class="maker">Made by Roy Eliasaf</div>
@@ -98,6 +104,10 @@
 
 <script src="spots.js"></script>
 <script src="app.js"></script>
+<script src="../shared.js"></script>
+<script>
+  formatLastUpdated('last-updated');
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

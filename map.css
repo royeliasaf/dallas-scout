@@ -315,7 +315,7 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
   stroke-linejoin: round;
 }
 #us-map .city.live .label { fill: var(--accent); font-weight: 700; }
-#us-map .city.soon .label { fill: var(--ink-soft); opacity: 0; transition: opacity 0.15s; }
+#us-map .city.soon .label { fill: var(--ink-soft); opacity: 0.7; transition: opacity 0.15s; }
 #us-map .city.soon:hover .label { opacity: 1; }
 
 .tooltip {
@@ -449,12 +449,15 @@ h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
 .city-card.live:hover .city-cta { color: var(--bg); }
 .city-card.live:hover .city-cta .city-arrow { color: var(--accent); transform: translateX(4px); }
 .city-card.soon .meta-cta {
-  display: none;
+  display: block;
+  margin-top: 4px;
   color: var(--accent);
   font-weight: 700;
+  font-size: 9px;
+  opacity: 0.75;
+  transition: opacity 0.15s;
 }
-.city-card.soon:hover .meta-soon { display: none; }
-.city-card.soon:hover .meta-cta { display: inline; }
+.city-card.soon:hover .meta-cta { opacity: 1; }
 
 .city-name {
   font-family: 'Fraunces', serif;
@@ -512,6 +515,10 @@ footer .maker {
   .stats { text-align: left; border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 12px; }
   .city-row { grid-template-columns: 1fr; }
   #us-map .city.soon .label { opacity: 1; font-size: 9px; }
+}
+
+@media (max-width: 1024px) {
+  #us-map .city.soon .label { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

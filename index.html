@@ -11,10 +11,16 @@
 <meta property="og:title" content="Scout: A working guide to America">
 <meta property="og:description" content="Pick a city. Get the goods. Starting in Dallas.">
 <meta property="og:site_name" content="Scout">
+<meta property="og:image" content="https://dallas-scout.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="Scout — A working guide to America, examined.">
 
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scout: A working guide to America">
 <meta name="twitter:description" content="Pick a city. Get the goods. Starting in Dallas.">
+<meta name="twitter:image" content="https://dallas-scout.vercel.app/og.png">
+<meta name="twitter:image:alt" content="Scout — A working guide to America, examined.">
 
 <meta name="theme-color" content="#1a1814">
 
@@ -22,7 +28,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="map.css">
 </head>
 <body>
@@ -48,25 +54,9 @@
 <section class="featured" aria-label="Featured spots in Dallas">
   <div class="featured-header">
     <span class="featured-tag">In Dallas this week</span>
-    <a href="/dallas/" class="featured-link">See all 98 spots →</a>
+    <a href="/dallas/" class="featured-link">See all <span id="featured-count">…</span> spots →</a>
   </div>
-  <div class="featured-row">
-    <a href="/dallas/" class="featured-card">
-      <div class="featured-cat">Pizza · Top pick</div>
-      <div class="featured-name">Mister O1</div>
-      <div class="featured-note">4.9 over 4,800 reviews. The Mimmo with basil, ranch, and honey is the move.</div>
-    </a>
-    <a href="/dallas/" class="featured-card">
-      <div class="featured-cat">Late night</div>
-      <div class="featured-name">Velvet Taco</div>
-      <div class="featured-note">Open till 3:30am Fri/Sat. WTF Cordon Bleu is fan favorite.</div>
-    </a>
-    <a href="/dallas/" class="featured-card">
-      <div class="featured-cat">Special occasion</div>
-      <div class="featured-name">Shoyo</div>
-      <div class="featured-note">Top 5 omakase in Dallas. Twelve seats. Books out fast.</div>
-    </a>
-  </div>
+  <div class="featured-row" id="featured-row"></div>
 </section>
 
 <div class="map-wrap">
@@ -86,33 +76,49 @@
     <h2 class="section-title">On the map</h2>
     <span class="section-desc">Click to enter</span>
   </div>
-  <div class="city-row">
-    <a href="/dallas/" class="city-card live" aria-label="Enter Dallas Scout, 98 spots curated">
-      <span class="live-badge">Live now</span>
-      <div class="city-name">Dallas</div>
-      <div class="city-meta">TX · 98 spots · Vol. 14</div>
-      <div class="city-cta">Enter Dallas <span class="city-arrow">→</span></div>
-    </a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20Austin%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20Austin%20Scout%20is%20live."><div class="city-name">Austin</div><div class="city-meta"><span class="meta-soon">TX · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20Houston%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20Houston%20Scout%20is%20live."><div class="city-name">Houston</div><div class="city-meta"><span class="meta-soon">TX · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20San%20Antonio%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20San%20Antonio%20Scout%20is%20live."><div class="city-name">San Antonio</div><div class="city-meta"><span class="meta-soon">TX · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20New%20York%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20New%20York%20Scout%20is%20live."><div class="city-name">New York</div><div class="city-meta"><span class="meta-soon">NY · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20Los%20Angeles%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20Los%20Angeles%20Scout%20is%20live."><div class="city-name">Los Angeles</div><div class="city-meta"><span class="meta-soon">CA · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-    <a class="city-card soon" href="mailto:roy.eliasaf@gmail.com?subject=Notify%20me%20when%20Chicago%20Scout%20launches&amp;body=Hi%20Roy%2C%20let%20me%20know%20when%20Chicago%20Scout%20is%20live."><div class="city-name">Chicago</div><div class="city-meta"><span class="meta-soon">IL · Coming soon</span><span class="meta-cta">Want this? Tell Roy →</span></div></a>
-  </div>
+  <div class="city-row" id="city-row"></div>
 </section>
 
 <footer>
-  <div><strong>Scout</strong> · Last updated May 5, 2026</div>
+  <div><strong>Scout</strong> · Last updated <span id="last-updated"></span></div>
   <div>Pick a city →</div>
   <div class="maker">Made by Roy Eliasaf</div>
 </footer>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<script src="dallas/spots.js"></script>
+<script src="shared.js"></script>
 <script src="map.js"></script>
+<script>
+  (function () {
+    const count = SPOTS.length;
+    const featuredCount = document.getElementById('featured-count');
+    const dallasCount = document.getElementById('dallas-count');
+    if (featuredCount) featuredCount.textContent = count;
+    if (dallasCount) dallasCount.textContent = count;
+
+    const row = document.getElementById('featured-row');
+    if (row) {
+      row.innerHTML = FEATURED.map(f => {
+        const spot = SPOTS.find(s => s.id === f.id);
+        if (!spot) {
+          console.warn(`FEATURED entry "${f.id}" has no matching spot in SPOTS`);
+          return '';
+        }
+        return `<a href="/dallas/" class="featured-card">
+          <div class="featured-cat">${f.label}</div>
+          <div class="featured-name">${f.displayName || spot.name}</div>
+          <div class="featured-note">${spot.note}</div>
+        </a>`;
+      }).join('');
+    }
+
+    formatLastUpdated('last-updated');
+  })();
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
