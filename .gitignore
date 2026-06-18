@@ -1,2 +1,5 @@
 .vercel
 .claude/
+
+# 2048×2048 source PNG, used only to generate apple-touch-icon.png — referenced nowhere, 2.3 MB
+icon.png

@@ -94,3 +94,31 @@
 
 (Skipped — the items from the prior two reviews closed out the genuine surface area: SRI on the CDN scripts, XSS on the search-query interpolation, and the version pin on `us-atlas`. Nothing new worth flagging this pass.)
 
+## 2026-06-08
+
+### Content
+
+**1. ✅ "In Dallas this week" promises rotation that never happens** — [index.html:56](index.html#L56) labeled the featured row "In Dallas this week", but `FEATURED` ([spots.js:168](dallas/spots.js#L168)) is a static three-item list (Mister O1 / Velvet Taco / Shoyo) with no day- or week-based logic anywhere. A visitor who returns next week sees the identical "this week" picks — the copy makes a freshness claim the code doesn't back. **Fix applied:** renamed to "Featured in Dallas" (honest, no implied cadence). If you want real rotation later, seed `FEATURED` selection from a larger pool by week-of-year.
+
+### Design
+
+**2. ✅ No `apple-touch-icon` — home-screen / bookmark icon was a blank fallback** — Both pages declared only the tiny inline-SVG `rel="icon"` (cream square + red dot) at [index.html:27](index.html#L27) / [dallas/index.html:30](dallas/index.html#L30) and no `apple-touch-icon`. Add the site to an iOS/Android home screen, pin a tab, or share to an app that uses the touch icon, and you got a blurry auto-generated glyph — undercuts the "polished masthead" identity the rest of the site works for. **Fix applied:** generated `apple-touch-icon.png` (180×180, 26 KB) from the existing `icon.png` and added `<link rel="apple-touch-icon" href="/apple-touch-icon.png">` to both heads.
+
+**3. ✅ Map's `aria-label` instructed an action screen-reader/keyboard users can't perform** — [index.html:68](index.html#L68) labeled the SVG `"Map of the United States. Click Dallas to enter Dallas Scout."` But the city `<g>` nodes ([map.js:94](map.js#L94)) are click-only — not focusable, no `role`, no key handler — so a keyboard or AT user was told to "click Dallas" with no way to do it. **Fix applied:** reworded to `"Map of the United States showing Scout cities. Dallas is live; the city list below has the same links."` — it now points AT users to the real `<a>` city cards below instead of promising a dead interaction. (Full keyboard-focusable dots were intentionally not added: the cards and featured links already cover every destination, so the map stays decorative-redundant.)
+
+### Structure
+
+**4. ✅ Homepage `#live-count` was hardcoded `1`** — [index.html:50](index.html#L50): `<strong id="live-count">1</strong>`, and `map.js` never updated it. The `cities[]` array ([map.js:1-9](map.js#L1)) already carries each city's `status`. Promote a second city to `status: 'live'` and the headline stat silently keeps saying "1" — the same "fix it twice" pattern caught for city cards (5/21 #5), featured cards (5/20 #4), and the spot count (5/20 #5). **Fix applied:** `map.js` now sets `live-count` from `cities.filter(c => c.status === 'live').length` right after `renderCityCards()`.
+
+### Performance
+
+**5. ✅ `icon.png` is 2.3 MB (2048×2048), untracked, and referenced nowhere** — `grep -rn "icon.png"` across all HTML/JS/JSON returns nothing; it's pure dead weight. The deploy flow in CLAUDE.md is literally `git add .`, so the next push would commit 2.3 MB of unused PNG into the repo and ship it to Vercel. **Resolved (2026-06-15):** added `icon.png` to `.gitignore` so the next `git add .` no longer stages it — keeps the local source around (it generated the 26 KB `apple-touch-icon.png`) without shipping the bytes. Reversible: delete the `.gitignore` line if the source is ever needed in-repo.
+
+### Security
+
+**6. ✅ Third-party `roy-analytics.vercel.app/t.js` loaded with no integrity check** — [index.html:124](index.html#L124) and [dallas/index.html:113](dallas/index.html#L113) loaded `<script async src="https://roy-analytics.vercel.app/t.js">` with full page privileges and no `integrity=`/SRI. The 5/21 review added SRI hashes to the d3/topojson CDN tags but this analytics script — on a separate domain — was never covered. If that Vercel project/domain were ever taken over or its deploy compromised, arbitrary JS would run on every visitor. **Resolved (2026-06-15) — option (b):** self-hosted the script as [/t.js](t.js) in this repo (1.3 KB, byte-for-byte copy of the served file) and repointed both `<script>` tags to `src="/t.js"`. The collector endpoint (`POST roy-analytics.vercel.app/api/track`) is unchanged — analytics keep flowing — but the executable code is now inside the same trust boundary as the rest of the site, so a compromise of the analytics deploy no longer injects code here. Updated the script's fallback `data-site` selector from `src*="roy-analytics.vercel.app/t.js"` to `src$="/t.js"` to match the new path (`document.currentScript` already covers the primary path).
+
+### Mobile
+
+**7. ✅ Masthead meta-line broke mid-word below ~375px** — [dallas/index.html:43-49](dallas/index.html#L43) renders `← All cities · Vol. 14 · Highland Park · 75205` in a `.meta-line` that was `display:flex; flex-wrap:nowrap`. At 320px the row didn't overflow (good) but each text node wrapped *inside* its flex item, producing a ragged "← ALL / CITIES … VOL. / 14" stack (verified in browser at 320px). **Fix applied:** added `flex-wrap: wrap` + `gap: 8px 16px` to `.meta-line` and `white-space: nowrap` to its children in both [map.css:54](map.css#L54) and [dallas/style.css:54](dallas/style.css#L54); items now wrap as whole units (`← ALL CITIES · VOL. 14 ·` / `HIGHLAND PARK · 75205`).
+

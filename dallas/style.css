@@ -58,11 +58,13 @@ header {
   text-transform: uppercase;
   color: var(--ink-soft);
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 8px 16px;
   align-items: center;
   margin-bottom: 12px;
 }
 
+.meta-line > * { white-space: nowrap; }
 .meta-line .dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
 
 .back-link {

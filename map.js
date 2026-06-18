@@ -12,7 +12,7 @@ const svg = d3.select('#us-map');
 const tooltip = d3.select('#tooltip');
 const stage = d3.select('.map-stage');
 
-const NOTIFY_EMAIL = 'roy.eliasaf@gmail.com';
+const NOTIFY_EMAIL = 'roybuilds.co@gmail.com';
 function notifyHref(cityName) {
   const subject = encodeURIComponent(`Notify me when ${cityName} Scout launches`);
   const body = encodeURIComponent(`Hi Roy, let me know when ${cityName} Scout is live.`);
@@ -45,6 +45,9 @@ function renderCityCards() {
 }
 
 renderCityCards();
+
+const liveCountEl = document.getElementById('live-count');
+if (liveCountEl) liveCountEl.textContent = cities.filter(c => c.status === 'live').length;
 
 let topoCache = null;
 const TOPO_URL = 'https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json';
